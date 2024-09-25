@@ -5,9 +5,5 @@ public interface Company extends Iterable<Employee>{
 	public Employee removeEmployee(long id) ;
 	public int getDepartmentBudget(String department) ;
 	public String[] getDepartments() ;
-	public Manager[] getManagersWithMostFactor() ;
-	
-	
-	
-	
+	public Manager[] getManagersWithMostFactor() ;	
 }

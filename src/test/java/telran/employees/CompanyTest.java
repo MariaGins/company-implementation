@@ -9,10 +9,10 @@ import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import telran.employees.*;
-import telran.io.Persistable;
 
-abstract class CompanyTest {
+
+
+ class CompanyTest {
 private static final long ID1 = 123;
 private static final int SALARY1 = 1000;
 private static final String DEPARTMENT1 = "QA";
@@ -33,7 +33,6 @@ private static final long ID5 = 300;
 private static final float FACTOR3 = 3;
 private static final long ID6 = 400;
 private static final long ID7 = 500;
-private static final String EMPLOYEES_TEST_FILE = "employeesTest.data";
 Employee empl1 = new WageEmployee(ID1, SALARY1, DEPARTMENT1, WAGE1, HOURS1);
 Employee empl2 = new Manager(ID2, SALARY2, DEPARTMENT1, FACTOR1);
 Employee empl3 = new SalesPerson(ID3, SALARY3, DEPARTMENT2, WAGE1, HOURS1, PERCENT1, SALES1);
@@ -134,5 +133,7 @@ void setCompany() {
 			assertArrayEquals(new Manager[0], company.getManagersWithMostFactor());
 			assertArrayEquals(new String[] {DEPARTMENT1}, company.getDepartments());
 		}
+	
+	
 
 }
