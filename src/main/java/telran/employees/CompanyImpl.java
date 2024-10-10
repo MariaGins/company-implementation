@@ -1,8 +1,14 @@
 package telran.employees;
 
+import java.io.*;
+import java.util.Map.Entry;
+import java.lang.IllegalStateException;
+
 import java.util.*;
 
-public class CompanyImpl implements Company {
+import telran.io.Persistable;
+
+public class CompanyImpl implements Company, Persistable {
     private TreeMap<Long, Employee> employees = new TreeMap<>();
     private HashMap<String, List<Employee>> employeesDepartment = new HashMap<>();
     private TreeMap<Float, List<Manager>> managersFactor = new TreeMap<>();
@@ -56,6 +62,12 @@ public class CompanyImpl implements Company {
     }
 
     @Override
+	public List<Employee> getAllEmployees() {
+		
+		return new ArrayList<>(employees.values());
+	}
+
+    @Override
     public Employee removeEmployee(long id) {
         Employee empl = employees.remove(id);
         if (empl == null) {
@@ -100,4 +112,28 @@ public class CompanyImpl implements Company {
         return res;
     }
 
+    // @Override
+    // public void saveToFile(String fileName) {
+    //     try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(fileName))){
+	// 		output.writeObject(getAllEmployees());
+	// 	} catch(Exception e) {
+	// 		throw new RuntimeException(e.toString()); 
+	// 	}
+    // }
+
+            
+	// @Override
+	// public void restoreFromFile(String fileName) {
+	// 	try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(fileName))) {
+	// 		List<Employee> allEmployees = (List<Employee>) input.readObject();
+	// 		allEmployees.forEach(this::addEmployee);
+	// 	}catch(FileNotFoundException e) {
+			
+	// 	} catch (Exception e) {
+	// 		throw new RuntimeException(e.toString());
+	// 	}
+
+	// }
+
+   
 }
