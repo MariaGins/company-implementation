@@ -1,11 +1,8 @@
 package telran.employees;
 
 import java.io.*;
-import java.util.Map.Entry;
-import java.lang.IllegalStateException;
-
+import java.nio.file.*;
 import java.util.*;
-
 import telran.io.Persistable;
 
 public class CompanyImpl implements Company, Persistable {
@@ -111,29 +108,23 @@ public class CompanyImpl implements Company, Persistable {
         }
         return res;
     }
+    
+    @Override
+    public void saveToFile(String fileName) {
+        try (PrintWriter writer = new PrintWriter(fileName)) {
+            forEach(writer::println);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-    // @Override
-    // public void saveToFile(String fileName) {
-    //     try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(fileName))){
-	// 		output.writeObject(getAllEmployees());
-	// 	} catch(Exception e) {
-	// 		throw new RuntimeException(e.toString()); 
-	// 	}
-    // }
-
-            
-	// @Override
-	// public void restoreFromFile(String fileName) {
-	// 	try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(fileName))) {
-	// 		List<Employee> allEmployees = (List<Employee>) input.readObject();
-	// 		allEmployees.forEach(this::addEmployee);
-	// 	}catch(FileNotFoundException e) {
-			
-	// 	} catch (Exception e) {
-	// 		throw new RuntimeException(e.toString());
-	// 	}
-
-	// }
-
-   
+    @Override
+    public void restoreFromFile(String fileName) {
+        try (BufferedReader reader = Files.newBufferedReader(Path.of(fileName))) {
+            reader.lines().map(Employee::getEmployeeFromJSON).forEach(this::addEmployee);
+        } catch (FileNotFoundException e) { 
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
